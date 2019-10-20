@@ -107,3 +107,31 @@ function( get_git_repository_head_file_contents git_repository_head_file_content
 
     set( ${git_repository_head_file_contents} "${head_file_contents}" PARENT_SCOPE )
 endfunction( get_git_repository_head_file_contents )
+
+# Get the state of the nearest Git repository's HEAD.
+#
+# If a Git repository has not been found by the time the search reaches CMAKE_SOURCE_DIR,
+# a fatal error will be reported.
+#
+# If the HEAD file does not exist, a fatal error will be reported.
+#
+# SYNOPSIS
+#     get_git_repository_head_state( <git_repository_head_is_detached> )
+#
+# OPTIONS
+#     <git_repository_head_is_detached>
+#         The variable to store the state of the Git repository's head in. If the Git
+#         repository's HEAD is detached, this variable will be set to TRUE. If the Git
+#         repository's HEAD is not detached, this variable will be set to FALSE.
+#
+# EXAMPLES
+#     get_git_repository_head_state( GIT_REPOSITORY_HEAD_IS_DETACHED )
+function( get_git_repository_head_state git_repository_head_is_detached )
+    get_git_repository_head_file_contents( head_file_contents )
+
+    if( head_file_contents MATCHES "^ref: " )
+        set( ${git_repository_head_is_detached} FALSE PARENT_SCOPE )
+    else( head_file_contents MATCHES "^ref: " )
+        set( ${git_repository_head_is_detached} TRUE PARENT_SCOPE )
+    endif( head_file_contents MATCHES "^ref: " )
+endfunction( get_git_repository_head_state )
