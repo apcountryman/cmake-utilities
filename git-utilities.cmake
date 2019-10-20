@@ -68,7 +68,7 @@ endfunction( get_git_repository_path )
 #
 # OPTIONS
 #     <git_repository_head_file_path>
-#         The variable to store the path to the Git repository HEAD file in.
+#         The variable to store the path to the Git repository's HEAD file in.
 #
 # EXAMPLES
 #     get_git_repository_head_file_path( GIT_REPOSITORY_HEAD_FILE_PATH )
@@ -82,3 +82,28 @@ function( get_git_repository_head_file_path git_repository_head_file_path )
 
     set( ${git_repository_head_file_path} "${head_file_path}" PARENT_SCOPE )
 endfunction( get_git_repository_head_file_path )
+
+# Get the contents of the nearest Git repository's HEAD file.
+#
+# If a Git repository has not been found by the time the search reaches CMAKE_SOURCE_DIR,
+# a fatal error will be reported.
+#
+# If the HEAD file does not exist, a fatal error will be reported.
+#
+# SYNOPSIS
+#     get_git_repository_head_file_contents( <git_repository_head_file_contents> )
+#
+# OPTIONS
+#     <git_repository_head_file_contents>
+#         The variable to store the contents of the Git repository's HEAD file in.
+#
+# EXAMPLES
+#     get_git_repository_head_file_contents( GIT_REPOSITORY_HEAD_FILE_CONTENTS )
+function( get_git_repository_head_file_contents git_repository_head_file_contents )
+    get_git_repository_head_file_path( head_file_path )
+
+    file( READ "${head_file_path}" head_file_contents )
+    string( STRIP "${head_file_contents}" head_file_contents )
+
+    set( ${git_repository_head_file_contents} "${head_file_contents}" PARENT_SCOPE )
+endfunction( get_git_repository_head_file_contents )
