@@ -55,3 +55,30 @@ function( get_git_repository_path git_repository_path )
         set( ${git_repository_path} "${repository_path}" PARENT_SCOPE )
     endif( IS_DIRECTORY "${repository_path}" )
 endfunction( get_git_repository_path )
+
+# Get the path to the nearest Git repository's HEAD file.
+#
+# If a Git repository has not been found by the time the search reaches CMAKE_SOURCE_DIR,
+# a fatal error will be reported.
+#
+# If the HEAD file does not exist, a fatal error will be reported.
+#
+# SYNOPSIS
+#     get_git_repository_head_file_path( <git_repository_head_file_path> )
+#
+# OPTIONS
+#     <git_repository_head_file_path>
+#         The variable to store the path to the Git repository HEAD file in.
+#
+# EXAMPLES
+#     get_git_repository_head_file_path( GIT_REPOSITORY_HEAD_FILE_PATH )
+function( get_git_repository_head_file_path git_repository_head_file_path )
+    get_git_repository_path( repository_path )
+    set( head_file_path "${repository_path}/HEAD" )
+
+    if( NOT EXISTS "${head_file_path}" )
+        message( FATAL_ERROR "${head_file_path} does not exist" )
+    endif( NOT EXISTS "${head_file_path}" )
+
+    set( ${git_repository_head_file_path} "${head_file_path}" PARENT_SCOPE )
+endfunction( get_git_repository_head_file_path )
