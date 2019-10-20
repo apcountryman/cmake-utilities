@@ -49,7 +49,7 @@ function( get_git_repository_path git_repository_path )
         file( READ "${repository_path}" repository_path )
         string( REPLACE "gitdir: " "" repository_path "${repository_path}" )
         string( STRIP "${repository_path}" repository_path )
-        set( repository "${source_directory}/${repository_path}" )
+        set( repository_path "${source_directory}/${repository_path}" )
         get_filename_component( repository_path "${repository_path}" ABSOLUTE )
 
         set( ${git_repository_path} "${repository_path}" PARENT_SCOPE )
