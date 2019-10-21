@@ -135,3 +135,45 @@ function( get_git_repository_head_state git_repository_head_is_detached )
         set( ${git_repository_head_is_detached} TRUE PARENT_SCOPE )
     endif( head_file_contents MATCHES "^ref: " )
 endfunction( get_git_repository_head_state )
+
+# Get the path to the nearest Git repository's active branch head file.
+#
+# If a Git repository has not been found by the time the search reaches CMAKE_SOURCE_DIR,
+# a fatal error will be reported.
+#
+# If the HEAD file does not exist, a fatal error will be reported.
+#
+# If the Git repository's HEAD is detached, a fatal error will be reported.
+#
+# If the head file for the active branch does not exist, a fatal error will be reported.
+#
+# SYNOPSIS
+#     get_git_repository_active_branch_head_file_path(
+#         <git_repository_active_branch_head_file_path>
+#     )
+#
+# OPTIONS
+#     <git_repository_active_branch_head_file_path>
+#         The variable to store the path to the Git repository's active branch head file
+#         in.
+#
+# EXAMPLES
+#     get_git_repository_active_branch_head_file_path( GIT_REPOSITORY_ACTIVE_BRANCH_HEAD_FILE_PATH )
+function( get_git_repository_active_branch_head_file_path git_repository_active_branch_head_file_path )
+    get_git_repository_head_state( head_is_detached )
+    if( head_is_detached )
+        message( FATAL_ERROR "detached HEAD" )
+    endif( head_is_detached )
+
+    get_git_repository_path( repository_path )
+    get_git_repository_head_file_contents( active_branch_head_file_path )
+    string( REPLACE "ref: " "" active_branch_head_file_path "${active_branch_head_file_path}" )
+    string( STRIP "${active_branch_head_file_path}" active_branch_head_file_path )
+    set( active_branch_head_file_path "${repository_path}/${active_branch_head_file_path}" )
+
+    if( NOT EXISTS "${active_branch_head_file_path}" )
+        message( FATAL_ERROR "${active_branch_head_file_path} does not exist" )
+    endif( NOT EXISTS "${active_branch_head_file_path}" )
+
+    set( ${git_repository_active_branch_head_file_path} "${active_branch_head_file_path}" PARENT_SCOPE )
+endfunction( get_git_repository_active_branch_head_file_path )
