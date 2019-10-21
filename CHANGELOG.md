@@ -8,3 +8,4 @@
 - Project license (Apache License, Version 2.0).
 - Project README skeleton.
 - Project CHANGELOG.
+- [Add Git command wrapper](https://github.com/apcountryman/cmake-utilities/issues/1).
