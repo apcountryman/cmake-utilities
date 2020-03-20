@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 UTC is used when determining release dates.
 
 ## [Unreleased](https://github.com/apcountryman/cmake-utilities/compare/master...develop)
+
+## [0.2.0](https://github.com/apcountryman/cmake-utilities/compare/0.1.0...0.2.0) - 2020-03-20
 ### Added
 - [Script error checks](https://github.com/apcountryman/cmake-utilities/issues/5).
 
