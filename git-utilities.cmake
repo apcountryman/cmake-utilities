@@ -15,8 +15,6 @@
 # File: git-utilities.cmake
 # Description: CMake Git utilities.
 
-cmake_minimum_required( VERSION 3.13.4 )
-
 # Get the path to the nearest Git repository in the source tree.
 #
 # If a Git repository has not been found by the time the search reaches CMAKE_SOURCE_DIR,
