@@ -8,6 +8,9 @@ UTC is used when determining release dates.
 ### Added
 - [Script error checks](https://github.com/apcountryman/cmake-utilities/issues/5).
 
+### Removed
+- [Git utilities CMake version check](https://github.com/apcountryman/cmake-utilities/issues/6).
+
 ## [0.1.0](https://github.com/apcountryman/cmake-utilities/compare/0.0.0...0.1.0) - 2019-10-21
 ### Added
 - Repository Git ignore rules.
