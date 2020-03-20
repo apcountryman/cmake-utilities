@@ -2,7 +2,7 @@
 
 # cmake-utilities
 #
-# Copyright 2019, 2020 Andrew Countryman <apcountryman@gmail.com>
+# Copyright 2020 Andrew Countryman <apcountryman@gmail.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
 # file except in compliance with the License. You may obtain a copy of the License at
@@ -14,20 +14,8 @@
 # KIND, either express or implied. See the License for the specific language governing
 # permissions and limitations under the License.
 
-# File: git/hooks/pre-commit
-# Description: Git pre-commit hook script for the cmake-utilities repository.
-
-function message()
-{
-    local -r content="$1"
-
-    echo -n "$mnemonic: $content"
-}
-
-function errors_found()
-{
-    echo "error(s) found"
-}
+# File: ci/static-analysis-shellcheck
+# Description: cmake-utilities repository CI static analysis stage shellcheck job.
 
 function error()
 {
@@ -50,8 +38,8 @@ function abort()
 function display_help_text()
 {
     echo "NAME"
-    echo "    $mnemonic - Ensure filenames are portable, no whitespace errors are"
-    echo "        present, and no script errors are present."
+    echo "    $mnemonic - Execute the cmake-utilities repository CI static analysis stage"
+    echo "        shellcheck job."
     echo "SYNOPSIS"
     echo "    $mnemonic --help"
     echo "    $mnemonic --version"
@@ -72,55 +60,20 @@ function display_version()
     echo "$mnemonic, version $version"
 }
 
-function ensure_filenames_are_portable()
+function static_analysis_shellcheck()
 {
-    message "checking for non-portable (non-ASCII) filenames ... "
-
-    if [[ $( git -C "$repository" diff --cached --name-only --diff-filter=A -z "$against" | LC_ALL=C tr -d '[ -~]\0' | wc -c ) != 0 ]]; then
-        errors_found
-        error "aborting commit due to non-portable (non-ASCII) filename(s)"
-        abort
-    fi
-
-    echo "none"
-}
-
-function ensure_no_whitespace_errors_are_present()
-{
-    message "checking for whitespace errors .................... "
-
-    if ! git -C "$repository" diff-index --check --cached "$against" -- > "/dev/null"; then
-        errors_found
-        error "aborting commit due to whitespace error(s), listed below"
-        git -C "$repository" diff-index --check --cached "$against" --
-        abort
-    fi
-
-    echo "none"
-}
-
-function ensure_no_script_errors_are_present()
-{
-    message "checking for script errors ........................ "
-
     local scripts; mapfile -t scripts < <( git -C "$repository" ls-files | xargs -r -d '\n' -I '{}' find "$repository/{}" -executable ); readonly scripts
 
-    if ! shellcheck "${scripts[@]}" > "/dev/null" 2>&1; then
-        errors_found
-        error "aborting commit due to script error(s), listed below"
-        shellcheck "${scripts[@]}"
-        abort
+    if ! shellcheck "${scripts[@]}"; then
+        abort "script error(s)"
     fi
-
-    echo "none"
 }
 
 function main()
 {
     local -r script=$( readlink -f "$0" )
     local -r mnemonic=$( basename "$script" )
-    local -r hooks=$( dirname "$script" )
-    local -r repository=$( readlink -f "$hooks/../.." )
+    local -r repository=$( readlink -f "$( dirname "$script" )/.." )
     local -r version=$( git -C "$repository" describe --always --dirty --broken )
 
     while [[ "$#" -gt 0 ]]; do
@@ -146,15 +99,7 @@ function main()
         esac
     done
 
-    if git -C "$repository" rev-parse --verify HEAD > "/dev/null" 2>&1; then
-        local -r against=HEAD
-    else
-        local -r against=$( git hash-object -t tree "/dev/null" )
-    fi
-
-    ensure_filenames_are_portable
-    ensure_no_whitespace_errors_are_present
-    ensure_no_script_errors_are_present
+    static_analysis_shellcheck
 }
 
 main "$@"

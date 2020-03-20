@@ -1,4 +1,6 @@
 # cmake-utilities
+[![Build Status](https://travis-ci.com/apcountryman/cmake-utilities.svg?branch=master)](https://travis-ci.com/apcountryman/cmake-utilities)
+
 CMake utilities (modules).
 
 ## Obtaining the Source Code

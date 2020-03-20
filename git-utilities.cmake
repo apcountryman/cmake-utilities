@@ -1,6 +1,6 @@
 # cmake-utilities
 #
-# Copyright 2019 Andrew Countryman <apcountryman@gmail.com>
+# Copyright 2019, 2020 Andrew Countryman <apcountryman@gmail.com>
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
 # file except in compliance with the License. You may obtain a copy of the License at
@@ -14,8 +14,6 @@
 
 # File: git-utilities.cmake
 # Description: CMake Git utilities.
-
-cmake_minimum_required( VERSION 3.13.4 )
 
 # Get the path to the nearest Git repository in the source tree.
 #
