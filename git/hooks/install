@@ -17,114 +17,139 @@
 # File: git/hooks/install
 # Description: Git hooks install script for the cmake-utilities repository.
 
-function abort()
-{
-    exit 1
-}
-
 function error()
 {
-    local param_message; declare -r param_message="$1"
+    local -r message="$1"
 
-    ( >&2 echo "$MNEMONIC: $param_message" )
+    ( >&2 echo "$mnemonic: $message" )
+}
+
+function abort()
+{
+    if [[ "$#" -gt 0 ]]; then
+        local -r message="$1"
+
+        error "$message, aborting"
+    fi
+
+    exit 1
 }
 
 function display_help_text()
 {
     echo "NAME"
-    echo "    $MNEMONIC - Install the cmake-utilities repository's Git hooks."
+    echo "    $mnemonic - Install the cmake-utilities repository's Git hooks."
     echo "SYNOPSIS"
-    echo "    $MNEMONIC --help"
-    echo "    $MNEMONIC --all"
-    echo "    $MNEMONIC [<hooks>]"
+    echo "    $mnemonic --help"
+    echo "    $mnemonic --version"
+    echo "    $mnemonic --all"
+    echo "    $mnemonic [<hooks>]"
     echo "OPTIONS"
     echo "    --all"
     echo "        Install all supported hooks."
     echo "    --help"
     echo "        Display this help text."
+    echo "    --version"
+    echo "        Display the version of this script."
     echo "    <hooks>"
     echo "        The whitespace separated list of hooks to install. The following hooks"
     echo "        are supported:"
 
-    for hook in $SUPPORTED_HOOKS; do
+    for hook in "${supported_hooks[@]}"; do
         echo "            $hook"
     done
 
     echo "EXAMPLES"
-    echo "    $MNEMONIC --help"
-    echo "    $MNEMONIC --all"
-    echo "    $MNEMONIC $SUPPORTED_HOOKS"
+    echo "    $mnemonic --help"
+    echo "    $mnemonic --version"
+    echo "    $mnemonic --all"
+    echo "    $mnemonic ${supported_hooks[*]}"
+}
+
+function display_version()
+{
+    echo "$mnemonic, version $version"
+}
+
+function valid_hook()
+{
+    local -r hook="$1"
+
+    for supported_hook in "${supported_hooks[@]}"; do
+        if [[ "$hook" == "$supported_hook" ]]; then
+            return 0
+        fi
+    done
+
+    return 1
 }
 
 function validate_hooks()
 {
-    while [[ $# -gt 0 ]]; do
-        local param_hook; param_hook="$1"
-        shift
-
-        if [[ ! -x "$HOOKS"/"$param_hook" ]]; then
-            error "'$param_hook' is not a supported hook, aborting"
-            abort
+    for hook in "${selected_hooks[@]}"; do
+        if ! valid_hook "$hook"; then
+            abort "'$hook' is not a supported hook"
         fi
     done
 }
 
 function install_hooks()
 {
-    while [[ $# -gt 0 ]]; do
-        local param_hook; param_hook="$1"
-        shift
+    for hook in "${selected_hooks[@]}"; do
+        rm -f "$repository/.git/hooks/$hook"
 
-        rm -f "$REPOSITORY"/.git/hooks/"$param_hook"
-
-        if ! ln -s "$HOOKS"/"$param_hook" "$REPOSITORY"/.git/hooks/"$param_hook" 2>/dev/null; then
-            error "'$param_hook' installation failed, aborting"
-            abort
+        if ! ln -s "$hooks/$hook" "$repository/.git/hooks/$hook" > "/dev/null" 2>&1; then
+            abort "'$hook' installation failure"
         fi
     done
 }
 
 function main()
 {
-    declare -r SCRIPT=$( readlink -f $0 )
-    declare -r HOOKS=$( dirname $SCRIPT )
-    declare -r MNEMONIC=$( basename $SCRIPT )
-    declare -r REPOSITORY="$HOOKS"/../..
-    declare -r SUPPORTED_HOOKS=$( find "$HOOKS" -executable -type f \! \( -name install \) -printf "%f " )
+    local -r script=$( readlink -f "$0" )
+    local -r mnemonic=$( basename "$script" )
+    local -r hooks=$( dirname "$script" )
+    local -r repository=$( readlink -f "$hooks/../.." )
+    local -r version=$( git -C "$repository" describe --always --dirty --broken )
 
-    local hooks; hooks=""
+    local supported_hooks; mapfile -t supported_hooks < <( git -C "$repository" ls-files 'git/hooks/' ':!:git/hooks/install' | xargs -r -d '\n' -I '{}' find "$repository/{}" -executable -printf '%f\n' ); readonly supported_hooks
 
-    while [[ $# -gt 0 ]]; do
-        local argument; argument="$1"
-        shift
+    local selected_hooks=()
 
-        case $argument in
+    while [[ "$#" -gt 0 ]]; do
+        local argument="$1"; shift
+
+        case "$argument" in
             --help)
                 display_help_text
                 exit
                 ;;
+            --version)
+                display_version
+                exit
+                ;;
             --all)
-                hooks="$SUPPORTED_HOOKS"
+                selected_hooks=( "${supported_hooks[@]}" )
                 break
                 ;;
             --*)
                 ;&
             -*)
-                error "'$argument' is not a supported option, aborting"
-                abort
+                abort "'$argument' is not a supported option"
                 ;;
-            "$MNEMONIC")
-                error "'$MNEMONIC' is not a hook, aborting"
-                abort
+            "$mnemonic")
+                abort "'$argument' is not a hook"
                 ;;
             *)
-                hooks="$hooks $argument"
+                selected_hooks+=( "$argument" )
                 ;;
         esac
     done
 
-    validate_hooks $hooks
-    install_hooks  $hooks
+    readonly selected_hooks
+
+    validate_hooks
+    install_hooks
 }
 
 main "$@"
