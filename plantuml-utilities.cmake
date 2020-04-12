@@ -37,7 +37,7 @@ endif( PLANTUML STREQUAL "PLANTUML-NOTFOUND" )
 #         The variable to store the absolute path of the generated diagram in.
 #     TARGET <target>
 #         The variable to store the name of the target that triggers generation of the
-#         diagram file in.
+#         diagram in.
 #
 # EXAMPLES
 #     add_plantuml_diagram( foo.plantuml )
