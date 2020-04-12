@@ -6,6 +6,10 @@ UTC is used when determining release dates.
 
 ## [Unreleased](https://github.com/apcountryman/cmake-utilities/compare/master...develop)
 
+## [0.3.0](https://github.com/apcountryman/cmake-utilities/compare/0.2.0...0.3.0) - 2020-04-12
+### Added
+- [PlantUML wrapper](https://github.com/apcountryman/cmake-utilities/issues/11).
+
 ## [0.2.0](https://github.com/apcountryman/cmake-utilities/compare/0.1.0...0.2.0) - 2020-03-20
 ### Added
 - [Script error checks](https://github.com/apcountryman/cmake-utilities/issues/5).

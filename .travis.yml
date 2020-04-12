@@ -17,11 +17,9 @@
 
 os: linux
 dist: bionic
-language: minimal
 
 jobs:
     include:
-        - stage: "Static Analysis"
-          name: "shellcheck"
+        - name: "analyze (static) - shellcheck"
           language: bash
-          script: ./ci/static-analysis-shellcheck
+          script: ./ci/analyze --analyzer shellcheck
