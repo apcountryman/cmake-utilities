@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 UTC is used when determining release dates.
 
 ## [Unreleased](https://github.com/apcountryman/cmake-utilities/compare/master...develop)
+
+## [0.3.0](https://github.com/apcountryman/cmake-utilities/compare/0.2.0...0.3.0) - 2020-04-12
 ### Added
 - [PlantUML wrapper](https://github.com/apcountryman/cmake-utilities/issues/11).
 
