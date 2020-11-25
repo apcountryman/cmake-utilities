@@ -1,5 +1,5 @@
 # cmake-utilities
-[![Build Status](https://travis-ci.com/apcountryman/cmake-utilities.svg?branch=master)](https://travis-ci.com/apcountryman/cmake-utilities)
+![CI](https://github.com/apcountryman/cmake-utilities/workflows/CI/badge.svg)
 
 CMake utilities (modules).
 
