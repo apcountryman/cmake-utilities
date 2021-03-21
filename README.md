@@ -31,6 +31,10 @@ To install this repository's Git hooks, run the `install` script located in the
 $ ./git/hooks/install --help
 ```
 
+## Contributing
+If you are interested in contributing to `cmake-utilities`, please [read the
+`CONTRIBUTING.md` file in this repository](CONTRIBUTING.md).
+
 ## Authors
 - Andrew Countryman
 
