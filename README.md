@@ -31,6 +31,11 @@ To install this repository's Git hooks, run the `install` script located in the
 $ ./git/hooks/install --help
 ```
 
+## Code of Conduct
+`cmake-utilities` has adopted the Contributor Covenant 2.0 code of conduct.
+For more information, [see the `CODE_OF_CONDUCT.md` file in this
+repository](CODE_OF_CONDUCT.md).
+
 ## Contributing
 If you are interested in contributing to `cmake-utilities`, please [read the
 `CONTRIBUTING.md` file in this repository](CONTRIBUTING.md).
