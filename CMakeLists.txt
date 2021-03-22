@@ -13,8 +13,19 @@
 # KIND, either express or implied. See the License for the specific language governing
 # permissions and limitations under the License.
 
-# File: .gitignore
-# Description: Git ignore rules for the cmake-utilities repository.
+# File: CMakeLists.txt
+# Description: cmake-utilities core CMake rules.
 
-# ignore the build directory
-build/
+cmake_minimum_required( VERSION 3.16.3 )
+project(
+    cmake-utilities
+    LANGUAGES NONE
+)
+
+# load additional CMake modules
+list(
+    APPEND CMAKE_MODULE_PATH
+    "${CMAKE_CURRENT_SOURCE_DIR}"
+)
+include( git-utilities )
+include( plantuml-utilities )
