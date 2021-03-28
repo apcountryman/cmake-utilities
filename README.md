@@ -1,5 +1,5 @@
 # cmake-utilities
-![CI](https://github.com/apcountryman/cmake-utilities/workflows/CI/badge.svg)
+i[![CI](https://github.com/apcountryman/cmake-utilities/actions/workflows/ci.yml/badge.svg)](https://github.com/apcountryman/cmake-utilities/actions/workflows/ci.yml)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](CODE_OF_CONDUCT.md)
 
 CMake utilities (modules).
