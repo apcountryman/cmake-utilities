@@ -1,6 +1,6 @@
 # cmake-utilities
 #
-# Copyright 2019-2022, Andrew Countryman <apcountryman@gmail.com> and the cmake-utilities
+# Copyright 2019-2023, Andrew Countryman <apcountryman@gmail.com> and the cmake-utilities
 # contributors
 #
 # Licensed under the Apache License, Version 2.0 (the "License"); you may not use this
