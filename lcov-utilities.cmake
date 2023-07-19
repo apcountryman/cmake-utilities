@@ -49,7 +49,7 @@ endif( GENHTML STREQUAL "GENHTML-NOTFOUND" )
 #     <target>
 #         Specify the name of the coverage target. The coverage report will be written to
 #         "${CMAKE_CURRENT_BINARY_DIR}/<target>-report/".
-#     BASE_DIRECTORY
+#     BASE_DIRECTORY <base_directory>
 #         Specify the base directory for relative paths. Equivalent to lcov's
 #         "--base-directory <base_directory>" option. Defaults to
 #         "${CMAKE_CURRENT_SOURCE_DIR}".
@@ -92,18 +92,20 @@ function( add_lcov_coverage_target target executable )
     endif( DEFINED add_lcov_coverage_target_UNPARSED_ARGUMENTS )
 
     if( ${add_lcov_coverage_target_EXCLUDE_EXTERNAL_SOURCE_FILES} )
-        list( APPEND lcov_no_external --no-external )
+        set( lcov_no_external --no-external )
     endif( ${add_lcov_coverage_target_EXCLUDE_EXTERNAL_SOURCE_FILES} )
 
     if( ${add_lcov_coverage_target_INCLUDE_BRANCH_COVERAGE} )
-        list( APPEND lcov_branch_coverage --rc lcov_branch_coverage=1 )
-        list( APPEND genhtml_branch_coverage --rc genhtml_branch_coverage=1 )
+        set( lcov_branch_coverage --rc lcov_branch_coverage=1 )
+        set( genhtml_branch_coverage --rc genhtml_branch_coverage=1 )
     endif( ${add_lcov_coverage_target_INCLUDE_BRANCH_COVERAGE} )
 
     if( DEFINED add_lcov_coverage_target_BASE_DIRECTORY )
         set( lcov_base_directory "${add_lcov_coverage_target_BASE_DIRECTORY}" )
+        set( genhtml_prefix "${add_lcov_coverage_target_BASE_DIRECTORY}" )
     else( DEFINED add_lcov_coverage_target_BASE_DIRECTORY )
         set( lcov_base_directory "${CMAKE_CURRENT_SOURCE_DIR}" )
+        set( genhtml_prefix "${CMAKE_CURRENT_SOURCE_DIR}" )
     endif( DEFINED add_lcov_coverage_target_BASE_DIRECTORY )
 
     add_custom_target(
@@ -149,7 +151,7 @@ function( add_lcov_coverage_target target executable )
         COMMAND
             "${GENHTML}"
             ${genhtml_branch_coverage}
-            --prefix "${CMAKE_CURRENT_SOURCE_DIR}"
+            --prefix "${genhtml_prefix}"
             --output-directory "${CMAKE_CURRENT_BINARY_DIR}/${target}-report"
             "${CMAKE_CURRENT_BINARY_DIR}/${target}.info"
         BYPRODUCTS
