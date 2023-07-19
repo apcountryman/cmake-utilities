@@ -28,4 +28,5 @@ list(
     "${CMAKE_CURRENT_SOURCE_DIR}"
 )
 include( git-utilities )
+include( lcov-utilities )
 include( plantuml-utilities )
