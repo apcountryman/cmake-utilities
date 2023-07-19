@@ -13,7 +13,6 @@
 # KIND, either express or implied. See the License for the specific language governing
 # permissions and limitations under the License.
 
-# File: git-utilities.cmake
 # Description: CMake Git utilities.
 
 # Get the path to the nearest Git repository in the source tree.
