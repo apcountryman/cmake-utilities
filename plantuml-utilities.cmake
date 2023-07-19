@@ -30,7 +30,6 @@ endif( PLANTUML STREQUAL "PLANTUML-NOTFOUND" )
 #         [FILE <file>]
 #         [TARGET <target>]
 #     )
-#
 # OPTIONS
 #     <source>
 #         The PlantUML source file to generate the diagram from.
@@ -39,7 +38,6 @@ endif( PLANTUML STREQUAL "PLANTUML-NOTFOUND" )
 #     TARGET <target>
 #         The variable to store the name of the target that triggers generation of the
 #         diagram in.
-#
 # EXAMPLES
 #     add_plantuml_diagram( foo.plantuml )
 #     add_plantuml_diagram(

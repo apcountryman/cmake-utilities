@@ -23,11 +23,9 @@
 #
 # SYNOPSIS
 #     get_git_repository_path( <git_repository_path> )
-#
 # OPTIONS
 #     <git_repository_path>
 #         The variable to store the path to the Git repository in.
-#
 # EXAMPLES
 #     get_git_repository_path( GIT_REPOSITORY_PATH )
 function( get_git_repository_path git_repository_path )
@@ -64,11 +62,9 @@ endfunction( get_git_repository_path )
 #
 # SYNOPSIS
 #     get_git_repository_head_file_path( <git_repository_head_file_path> )
-#
 # OPTIONS
 #     <git_repository_head_file_path>
 #         The variable to store the path to the Git repository's HEAD file in.
-#
 # EXAMPLES
 #     get_git_repository_head_file_path( GIT_REPOSITORY_HEAD_FILE_PATH )
 function( get_git_repository_head_file_path git_repository_head_file_path )
@@ -91,11 +87,9 @@ endfunction( get_git_repository_head_file_path )
 #
 # SYNOPSIS
 #     get_git_repository_head_file_contents( <git_repository_head_file_contents> )
-#
 # OPTIONS
 #     <git_repository_head_file_contents>
 #         The variable to store the contents of the Git repository's HEAD file in.
-#
 # EXAMPLES
 #     get_git_repository_head_file_contents( GIT_REPOSITORY_HEAD_FILE_CONTENTS )
 function( get_git_repository_head_file_contents git_repository_head_file_contents )
@@ -116,13 +110,11 @@ endfunction( get_git_repository_head_file_contents )
 #
 # SYNOPSIS
 #     get_git_repository_head_state( <git_repository_head_is_detached> )
-#
 # OPTIONS
 #     <git_repository_head_is_detached>
 #         The variable to store the state of the Git repository's head in. If the Git
 #         repository's HEAD is detached, this variable will be set to TRUE. If the Git
 #         repository's HEAD is not detached, this variable will be set to FALSE.
-#
 # EXAMPLES
 #     get_git_repository_head_state( GIT_REPOSITORY_HEAD_IS_DETACHED )
 function( get_git_repository_head_state git_repository_head_is_detached )
@@ -150,12 +142,10 @@ endfunction( get_git_repository_head_state )
 #     get_git_repository_active_branch_head_file_path(
 #         <git_repository_active_branch_head_file_path>
 #     )
-#
 # OPTIONS
 #     <git_repository_active_branch_head_file_path>
 #         The variable to store the path to the Git repository's active branch head file
 #         in.
-#
 # EXAMPLES
 #     get_git_repository_active_branch_head_file_path( GIT_REPOSITORY_ACTIVE_BRANCH_HEAD_FILE_PATH )
 function( get_git_repository_active_branch_head_file_path git_repository_active_branch_head_file_path )
@@ -198,13 +188,11 @@ endfunction( get_git_repository_active_branch_head_file_path )
 #         <git_command_output>
 #         COMMAND <command>
 #     )
-#
 # OPTIONS
 #     <git_command_output>
 #         The variable to store the output of the command in.
 #     COMMAND <command>
 #         The Git command to execute and its associated arguments.
-#
 # EXAMPLES
 #     execute_git_command(
 #         VERSION
