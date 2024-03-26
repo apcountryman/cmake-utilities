@@ -28,7 +28,7 @@ endif( PLANTUML STREQUAL "PLANTUML-NOTFOUND" )
 #         <source>
 #         [FILE <file>]
 #         [TARGET <target>]
-#     )
+#         )
 # OPTIONS
 #     <source>
 #         The PlantUML source file to generate the diagram from.
@@ -42,16 +42,16 @@ endif( PLANTUML STREQUAL "PLANTUML-NOTFOUND" )
 #     add_plantuml_diagram(
 #         foo.plantuml
 #         FILE FOO_FILE
-#     )
+#         )
 #     add_plantuml_diagram(
 #         foo.plantuml
 #         TARGET FOO_TARGET
-#     )
+#         )
 #     add_plantuml_diagram(
 #         foo.plantuml
 #         FILE   FOO_FILE
 #         TARGET FOO_TARGET
-#     )
+#         )
 function( add_plantuml_diagram source )
     cmake_parse_arguments(
         add_plantuml_diagram
@@ -59,7 +59,7 @@ function( add_plantuml_diagram source )
         "FILE;TARGET"
         ""
         ${ARGN}
-    )
+        )
 
     if( IS_ABSOLUTE "${source}" )
         set( source_file "${source}" )
@@ -75,11 +75,11 @@ function( add_plantuml_diagram source )
         OUTPUT "${diagram_file}"
         COMMAND "${PLANTUML}" -output "${CMAKE_CURRENT_BINARY_DIR}" "${source_file}"
         MAIN_DEPENDENCY "${source_file}"
-    )
+        )
     add_custom_target(
         "${diagram_target}" ALL
         DEPENDS "${diagram_file}"
-    )
+        )
 
     if( add_plantuml_diagram_FILE )
         set( ${add_plantuml_diagram_FILE} "${diagram_file}" PARENT_SCOPE )
