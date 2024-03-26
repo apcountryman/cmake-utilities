@@ -186,7 +186,7 @@ endfunction( get_git_repository_active_branch_head_file_path )
 #     execute_git_command(
 #         <git_command_output>
 #         COMMAND <command>
-#     )
+#         )
 # OPTIONS
 #     <git_command_output>
 #         The variable to store the output of the command in.
@@ -196,11 +196,11 @@ endfunction( get_git_repository_active_branch_head_file_path )
 #     execute_git_command(
 #         VERSION
 #         COMMAND describe --always --dirty
-#     )
+#         )
 #     execute_git_command(
 #         AUTHOR_DATE
 #         COMMAND show --date=short -s --format=format:%ad
-#     )
+#         )
 function( execute_git_command git_command_output )
     cmake_parse_arguments(
         execute_git_command
@@ -208,7 +208,7 @@ function( execute_git_command git_command_output )
         ""
         "COMMAND"
         ${ARGN}
-    )
+        )
 
     if( execute_git_command_UNPARSED_ARGUMENTS )
         message( FATAL_ERROR "'${execute_git_command_UNPARSED_ARGUMENTS}' are not supported arguments" )
@@ -223,7 +223,7 @@ function( execute_git_command git_command_output )
         DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
         APPEND
         PROPERTY CMAKE_CONFIGURE_DEPENDS "${head_file_path}"
-    )
+        )
 
     get_git_repository_head_state( head_is_detached )
     if( NOT head_is_detached )
@@ -232,7 +232,7 @@ function( execute_git_command git_command_output )
             DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
             APPEND
             PROPERTY CMAKE_CONFIGURE_DEPENDS "${active_branch_head_file_path}"
-        )
+            )
     endif( NOT head_is_detached )
 
     execute_process(
@@ -243,7 +243,7 @@ function( execute_git_command git_command_output )
         ERROR_VARIABLE command_error
         OUTPUT_STRIP_TRAILING_WHITESPACE
         ERROR_STRIP_TRAILING_WHITESPACE
-    )
+        )
     if( NOT command_result EQUAL 0 )
         message( FATAL_ERROR "git ${execute_git_command_COMMAND}: ${command_error}" )
     endif( NOT command_result EQUAL 0 )

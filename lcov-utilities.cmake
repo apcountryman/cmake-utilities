@@ -41,7 +41,7 @@ endif( GENHTML STREQUAL "GENHTML-NOTFOUND" )
 #         [INCLUDE_BRANCH_COVERAGE]
 #         [EXCLUDE_EXTERNAL_SOURCE_FILES]
 #         [REMOVE <pattern>...]
-#     )
+#         )
 # OPTIONS
 #     <executable>
 #         Specify the executable to collect coverage data from.
@@ -76,7 +76,7 @@ endif( GENHTML STREQUAL "GENHTML-NOTFOUND" )
 #             */source/foo/testing.h
 #             */source/foo/testing/*
 #             */test/automated/foo/*
-#     )
+#         )
 function( add_lcov_coverage_target target executable )
     cmake_parse_arguments(
         add_lcov_coverage_target
@@ -84,7 +84,7 @@ function( add_lcov_coverage_target target executable )
         "BASE_DIRECTORY"
         "EXECUTABLE_ARGUMENTS;REMOVE"
         ${ARGN}
-    )
+        )
 
     if( DEFINED add_lcov_coverage_target_UNPARSED_ARGUMENTS )
         message( FATAL_ERROR "'${add_lcov_coverage_target_UNPARSED_ARGUMENTS}' are not supported arguments" )
@@ -159,5 +159,5 @@ function( add_lcov_coverage_target target executable )
             "${CMAKE_CURRENT_BINARY_DIR}/${target}-combined.info"
             "${CMAKE_CURRENT_BINARY_DIR}/${target}.info"
             "${CMAKE_CURRENT_BINARY_DIR}/${target}-report/"
-    )
+        )
 endfunction( add_lcov_coverage_target )
