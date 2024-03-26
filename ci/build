@@ -15,7 +15,7 @@
 # KIND, either express or implied. See the License for the specific language governing
 # permissions and limitations under the License.
 
-# Description: cmake-utilities repository CI build script.
+# Description: CI build script.
 
 function error()
 {
