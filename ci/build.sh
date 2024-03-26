@@ -50,7 +50,7 @@ function display_help_text()
         "SYNOPSIS\n" \
         "    $mnemonic --help\n" \
         "    $mnemonic --version\n" \
-        "    $mnemonic"
+        "    $mnemonic\n" \
         "OPTIONS\n" \
         "    --help\n" \
         "        Display this help text.\n" \
