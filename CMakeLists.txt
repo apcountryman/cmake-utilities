@@ -21,11 +21,7 @@ project(
     LANGUAGES NONE
     )
 
-# load additional CMake modules
-list(
-    APPEND CMAKE_MODULE_PATH
-    "${CMAKE_CURRENT_SOURCE_DIR}"
-    )
+list( APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}" )
 include( git-utilities )
 include( lcov-utilities )
 include( plantuml-utilities )
