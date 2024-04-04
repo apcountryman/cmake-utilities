@@ -16,8 +16,7 @@
 # Description: Core CMake rules.
 
 cmake_minimum_required( VERSION 3.16.3 )
-project(
-    cmake-utilities
+project( cmake-utilities
     LANGUAGES NONE
     )
 
